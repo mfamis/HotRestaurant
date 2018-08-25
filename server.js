@@ -106,12 +106,12 @@ app.post('/reserve', function (req, res) {
   if (restaurants.length == 5) {
     waitlist.push(reservation)
     console.log(waitlist);
-    return res.json({hasReservation: false});
+    return res.json(true);
     
   } else {
     restaurants.push(reservation);
     console.log(restaurants);
-    return res.json({hasReservation: true});
+    return res.json(false);
   }
 
   res.json(reservation)
