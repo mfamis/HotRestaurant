@@ -1,97 +1,117 @@
 // Dependencies
 // =======================================================
-var express = require('express')
-var bodyParser = require('body-parser')
-var path = require('path')
+var express = require('express');
+var bodyParser = require('body-parser');
+var path = require('path');
 
 // Sets up the Express App
 // =============================================================
-var app = express()
-var PORT = 3000
+var app = express();
+var PORT = 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-// Star Wars Characters (DATA)
+// Restaurant arrays (DATA)
 // =============================================================
-var restaurants = [
-  {
-    routeName: 'greg',
-    name: 'Greg',
-    phoneNumber: 7078231222,
-    email: 'ljfd@gmail.com',
-    uniqueId: 24
-  },
-  {
-    routeName: 'pauly',
-    name: 'Pauly',
-    phoneNumber: 7073242354,
-    email: 'ljfd@gmail.com',
-    uniqueId: 23
-  },
-  {
-    routeName: 'john',
-    name: 'John',
-    phoneNumber: 7078324322,
-    email: 'd@gmail.com',
-    uniqueId: 26
-  },
-  {
-    routeName: 'emily',
-    name: 'Emily',
-    phoneNumber: 7078231334,
-    email: 'emily.d@gmail.com',
-    uniqueId: 29
-  },
-  {
-    routeName: 'sarah',
-    name: 'Sarah',
-    phoneNumber: 7078231222,
-    email: 'sarah@gmail.com',
-    uniqueId: 40
-  }
-]
+var restaurants = [{
+  name: "John",
+  phoneNumber: 1231231234,
+  email: "jfdls@lfdjfd.com",
+  uniqueId: 24
+// },
+ //{
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+// }, {
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+// }, {
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+// }, {
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+}];
 
-var waitlist = [
-  // {
-  //     // routeName: '',
-  //     // name: '',
-  //     // phoneNumber: int,
-  //     // email: '',
-  //     // uniqueId: int
-  // }
-]
+var waitlist = [{
+  // name: "Jasmine",
+  // phoneNumber: 1231231234,
+  // email: "jfdls@lfdjfd.com",
+  // uniqueId: 24
+}];
+
+var count = [{
+  homePage: 0
+},
+{
+  reservePage: 0
+},
+{
+  tablesPage: 0
+}]
+
+var hasReservation = false;
 
 // Routes
 // =============================================================
 
 // Basic route that sends the user first to the AJAX Page
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'home.html'))
+  res.sendFile(path.join(__dirname, 'home.html'));
+  count.homePage++;
 })
 
 app.get('/reserve', function (req, res) {
-  res.sendFile(path.join(__dirname, 'reserve.html'))
+  res.sendFile(path.join(__dirname, 'reserve.html'));
+  count.reservePage++;
 })
 
 app.get('/tables', function (req, res) {
-  res.sendFile(path.join(__dirname, 'tables.html'))
+  res.sendFile(path.join(__dirname, 'tables.html'));
+  count.tablesPage++;
+
 })
 
-app.get('/tables', function (req, res) {
-  return res.json(restaurants)
+app.get('/api/count', function (req, res) {
+  res.json(count)
+})
+
+app.get('/api/tables', function (req, res) {
+  return res.json(restaurants);
+})
+
+app.get('/api/waitlist', function (req, res) {
+  console.log("pulling from");
+  return res.json(waitlist);
 })
 
 app.post('/reserve', function (req, res) {
-  var reservation = req.body
 
-  if (restaurants.length < 6) {
-    restaurants.push(reservation)
-  } else {
+  var reservation = req.body
+  console.log(reservation);
+  console.log(reservation.phoneNumber);
+
+  if (restaurants.length == 5) {
     waitlist.push(reservation)
+    console.log(waitlist);
+    return res.json({hasReservation: false});
+    
+  } else {
+    restaurants.push(reservation);
+    console.log(restaurants);
+    return res.json({hasReservation: true});
   }
 
   res.json(reservation)

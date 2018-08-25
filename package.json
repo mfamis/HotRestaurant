@@ -1,11 +1,12 @@
 {
-  "name": "starwars-express",
+  "name": "restaurant-reserved",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "node-mailer": "^0.1.1",
     "nodemon": "^1.18.3"
   },
   "devDependencies": {},
