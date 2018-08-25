@@ -17,7 +17,7 @@
             <h2 class="text-center">Current Reservation and Waiting List</h2>
             <div class= "text-center">
                 <a href="/reserve"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> Make Reservation</button></a>
-                <a href="/"><button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home">Home</span></button></a>
+                <a href="/"><button class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
             </div>
         </div>
         <div class="row">
@@ -32,19 +32,18 @@
                         </ul>
                     </div>
                 </div>
-                    <!--Waiting List-->    
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Waitlist</h4>
-                        <div class="panel-body" id= "tableSection"></div>
-                    <!--For waitlist data-->    
-                        <div class="well" id="waitlistWell-01"></div>
-
+            </div>
+            <div class="col-lg-12">
+                <!--Waiting List-->    
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Current Waitlist</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group" id="waitlist-list">
+                        </ul>
                     </div>
                 </div>
-
-                       
-                        
             </div>
         </div>
         <script>
@@ -80,7 +79,7 @@ $(document).on("ready", function() {
         method: "GET"
     }).then(function(response) {
         console.log(response);
-        var reservationList = $("<ul>");
+        var reservationList = $("#waitlist-list");
         for(var i = 0; i < response.length; i++) {
             var reservationItem = $("<li>");
             reservationItem.append($("<h2>").text(response[i].customerName));
