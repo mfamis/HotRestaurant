@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Hot Restaurant</title>
-  <!-- Latest compiled and minified CSS & JS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hot Restaurant</title>
+        <!-- Latest compiled and minified CSS & JS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
 
-<div class="container">
+    <div class="container">
         <div class="jumbotron">
             <h1 class="text-center">Hot Restaurant</h1><hr>
             <h2 class="text-center">Current Reservation and Waiting List</h2>
@@ -81,11 +81,11 @@ $(document).on("ready", function() {
         console.log(response);
         var reservationList = $("#waitlist-list");
         for(var i = 0; i < response.length; i++) {
-            var reservationItem = $("<li>");
-            reservationItem.append($("<h2>").text(response[i].customerName));
+            var reservationItem = $("<li>").addClass("list-group-item mt-4");
+            reservationItem.append($("<h2>").text(response[i].name));
             reservationItem.append($("<h2>").text(response[i].phoneNumber));
-            reservationItem.append($("<h2>").text(response[i].customerEmail));
-            reservationItem.append($("<h2>").text(response[i].customerID));
+            reservationItem.append($("<h2>").text(response[i].email));
+            reservationItem.append($("<h2>").text(response[i].uniqueId));
             reservationList.append(reservationItem);
         }
     });
