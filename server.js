@@ -15,83 +15,81 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
-// Star Wars Characters (DATA)
+// Restaurant arrays (DATA)
 // =============================================================
-var restaurants = [
-  {
-    routeName: 'greg',
-    name: 'Greg',
-    phoneNumber: 7078231222,
-    email: 'ljfd@gmail.com',
-    uniqueId: 24
-  },
-  {
-    routeName: 'pauly',
-    name: 'Pauly',
-    phoneNumber: 7073242354,
-    email: 'ljfd@gmail.com',
-    uniqueId: 23
-  },
-  {
-    routeName: 'john',
-    name: 'John',
-    phoneNumber: 7078324322,
-    email: 'd@gmail.com',
-    uniqueId: 26
-  },
-  {
-    routeName: 'emily',
-    name: 'Emily',
-    phoneNumber: 7078231334,
-    email: 'emily.d@gmail.com',
-    uniqueId: 29
-  },
-  {
-    routeName: 'sarah',
-    name: 'Sarah',
-    phoneNumber: 7078231222,
-    email: 'sarah@gmail.com',
-    uniqueId: 40
-  }
-]
+var restaurants = [{
+  name: "John",
+  phoneNumber: 1231231234,
+  email: "jfdls@lfdjfd.com",
+  uniqueId: 24
+// },
+ //{
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+// }, {
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+// }, {
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+// }, {
+//   name: "John",
+//   phoneNumber: 1231231234,
+//   email: "jfdls@lfdjfd.com",
+//   uniqueId: 24
+}];
 
-var waitlist = [
-  // {
-  //     // routeName: '',
-  //     // name: '',
-  //     // phoneNumber: int,
-  //     // email: '',
-  //     // uniqueId: int
-  // }
-]
+var waitlist = [{
+  // name: "Jasmine",
+  // phoneNumber: 1231231234,
+  // email: "jfdls@lfdjfd.com",
+  // uniqueId: 24
+}];
 
 // Routes
 // =============================================================
 
 // Basic route that sends the user first to the AJAX Page
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'home.html'))
+  res.sendFile(path.join(__dirname, 'home.html'));
 })
 
 app.get('/reserve', function (req, res) {
-  res.sendFile(path.join(__dirname, 'reserve.html'))
+  res.sendFile(path.join(__dirname, 'reserve.html'));
 })
 
 app.get('/tables', function (req, res) {
-  res.sendFile(path.join(__dirname, 'tables.html'))
+  res.sendFile(path.join(__dirname, 'tables.html'));
+
 })
 
-app.get('/tables', function (req, res) {
-  return res.json(restaurants)
+app.get('/api/tables', function (req, res) {
+  return res.json(restaurants);
+})
+
+app.get('/api/waitlist', function (req, res) {
+  console.log("pulling from");
+  return res.json(waitlist);
 })
 
 app.post('/reserve', function (req, res) {
-  var reservation = req.body
 
-  if (restaurants.length < 6) {
-    restaurants.push(reservation)
-  } else {
+  var reservation = req.body
+  console.log(reservation);
+  console.log(reservation.phoneNumber);
+
+  if (restaurants.length == 5) {
     waitlist.push(reservation)
+    console.log(waitlist);
+  } else {
+    restaurants.push(reservation);
+    console.log(restaurants);
   }
 
   res.json(reservation)
